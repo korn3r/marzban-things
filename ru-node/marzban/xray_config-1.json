@@ -1,0 +1,122 @@
+{
+    "log": {
+        "loglevel": "none"
+    },
+    "dns": {
+        "servers": [
+            "127.0.0.1"
+        ]
+    },
+    "routing": {
+        "domainStrategy": "AsIs",
+        "rules": [
+            {
+                "domain": [ "domain:ru", "domain:su", "domain:рф", "domain:рус" ],
+                "outboundTag": "DIRECT"
+            },
+            {
+                "ip": "geoip:ru",
+                "outboundTag": "DIRECT"
+            },
+            {
+                "domain": "geosite:google",
+                "outboundTag": "DIRECT"
+            },
+            {
+                "ip": "geoip:private",
+                "outboundTag": "BLOCK"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "tag": "VLESS TCP REALITY",
+            "listen": "/opt/xray/xray.socket",
+            "protocol": "vless",
+            "settings": {
+                "clients": [
+                    {
+                        "id": "<ID>",
+                        "level": 0,
+                        "flow": "xtls-rprx-vision"
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "reality",
+                "realitySettings": {
+                    "dest": "/opt/nginx/nginx-443.socket",
+                    "serverNames": [
+                        "DOMAIN1.COM"
+                    ],
+                    "alpn": [
+                        "h2",
+                        "http/1.1"
+                    ],
+                    "minVersion": "1.3",
+                    "maxVersion": "1.3",
+                    "privateKey": "<PRIVKEY>",
+                    "publicKey": "<PUBKEY>",
+                    "shortIds": [ "" ],
+                    "fingerprint": "chrome",
+                    "xver": 1
+                },
+                "sockopt": {
+                    "tcpFastOpen": false,
+                    "acceptProxyProtocol": true,
+                    "tcpNoDelay": false
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "vless",
+            "settings": {
+                "vnext": [
+                    {
+                        "address": "<EXIT-NODE>",
+                        "port": 443,
+                        "users": [
+                            {
+                                "id": "<ID>",
+                                "encryption": "none",
+                                "flow": "xtls-rprx-vision"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "reality",
+                "realitySettings": {
+                    "fingerprint": "chrome",
+                    "serverName": "<EXIT-NODE>",
+                    "publicKey": "<PUBKEY>",
+                    "spiderX": "",
+                    "shortId": ""
+                }
+            },
+            "tag": "proxy"
+        },
+        {
+            "protocol": "freedom",
+            "tag": "DIRECT"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "BLOCK"
+        }
+    ]
+}
