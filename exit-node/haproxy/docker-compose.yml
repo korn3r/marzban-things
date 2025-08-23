@@ -1,0 +1,28 @@
+services:
+  haproxy:
+    image: haproxy:alpine
+    restart: always
+    network_mode: host
+    container_name: haproxy
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+      - /etc/sysctl.conf:/etc/sysctl.conf:ro
+      - xray-sock:/opt/xray/:rw
+      - nginx-sock:/opt/nginx/:rw
+
+volumes:
+  xray-sock:
+    driver: local
+    name: xray-sock
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
+
+  nginx-sock:
+    driver: local
+    name: nginx-sock
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
