@@ -1,0 +1,280 @@
+mixed-port: 7890
+allow-lan: true
+tcp-concurrent: true
+enable-process: true
+find-process-mode: strict
+mode: rule
+log-level: info
+ipv6: false
+bind-address: "*"
+keep-alive-interval: 45
+unified-delay: false
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack:
+    - "0.0.0.0:53"
+  auto-route: true
+  auto-detect-interface: true
+  strict-route: true
+
+dns:
+  enable: true
+#  use-hosts: true
+  ipv6: false
+  enhanced-mode: redir-host
+#  enhanced-mode: fake-ip
+  listen: 127.0.0.1:6868
+  default-nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+    - 1.0.0.1
+  nameserver:
+    - https://1.1.1.1/dns-query#PROXY
+    - https://8.8.8.8/dns-query#PROXY
+    - https://1.0.0.1/dns-query#PROXY
+    - 8.8.8.8
+    - 1.1.1.1
+  nameserver-policy:
+    '+.intranet': 'dhcp://system'
+    '+.internal': 'dhcp://system'
+    '+.private': 'dhcp://system'
+    '+.corp': 'dhcp://system'
+    '+.home': 'dhcp://system'
+    '+.lan': 'dhcp://system'
+    '+.local': 'dhcp://system'
+    '+.loc': 'dhcp://system'
+    '+.localdomain': 'dhcp://system'
+    '+.example': 'dhcp://system'
+    '+.invalid': 'dhcp://system'
+    '+.localhost': 'dhcp://system'
+    '+.test': 'dhcp://system'
+    '+.router': 'dhcp://system'
+    '+.ts.net': 'dhcp://system'
+    '+.home.arpa': 'dhcp://system'
+    '+.hiwifi.com': 'dhcp://system'
+    '+.tplinkwifi.net': 'dhcp://system'
+    '+.tendawifi.com': 'dhcp://system'
+    '+.plex.direct': 'dhcp://system'
+    '+.router.ctc': 'dhcp://system'
+    '+.phicomm.me': 'dhcp://system'
+    '+.peiluyou.com': 'dhcp://system'
+    '+.ru': 'dhcp://system'
+    '+.su': 'dhcp://system'
+    '+.рф': 'dhcp://system'
+    '+.рус': 'dhcp://system'
+    '+.moscow': 'dhcp://system'
+    '+.москва': 'dhcp://system'
+    '+.ru.net': 'dhcp://system'
+    '+.vk.com': 'dhcp://system'
+    'vk.com': 'dhcp://system'
+    '+.vk.сс': 'dhcp://system'
+    'vk.сс': 'dhcp://system'
+    '+.yandex.com': 'dhcp://system'
+    'yandex.com': 'dhcp://system'
+    '+.yandex.md': 'dhcp://system'
+    'yandex.md': 'dhcp://system'
+    '+.yandex.net': 'dhcp://system'
+    'yandex.net': 'dhcp://system'
+    '+.yastatic.net': 'dhcp://system'
+    'yastatic.net': 'dhcp://system'
+    '+.avito.st': 'dhcp://system'
+    'avito.st': 'dhcp://system'
+    '+.userapi.com': 'dhcp://system'
+    'userapi.com': 'dhcp://system'
+    '+.lenta.com': 'dhcp://system'
+    'lenta.com': 'dhcp://system'
+    '+.ozonusercontent.com': 'dhcp://system'
+    'ozonusercontent.com': 'dhcp://system'
+    '+.2gis.com': 'dhcp://system'
+    '2gis.com': 'dhcp://system'
+    '+.kpcdn.net': 'dhcp://system'
+    'kpcdn.net': 'dhcp://system'
+    '+.kp.house': 'dhcp://system'
+    'kp.house': 'dhcp://system'
+    '+.kp.kg': 'dhcp://system'
+    'kp.kg': 'dhcp://system'
+    '+.kaspersky-labs.com': 'dhcp://system'
+    'kaspersky-labs.com': 'dhcp://system'
+    '+.kaspersky.com': 'dhcp://system'
+    'kaspersky.com': 'dhcp://system'
+    '+.yadro.com': 'dhcp://system'
+    'yadro.com': 'dhcp://system'
+    '+.livejournal.com': 'dhcp://system'
+    'livejournal.com': 'dhcp://system'
+    '+.livejournal.net': 'dhcp://system'
+    'livejournal.net': 'dhcp://system'
+    '+.habr.com': 'dhcp://system'
+    'habr.com': 'dhcp://system'
+    '+.habrastorage.org': 'dhcp://system'
+    'habrastorage.org': 'dhcp://system'
+    '+.captive.apple.com': 'dhcp://system'
+    'captive.apple.com': 'dhcp://system'
+    '+.connectivitycheck.gstatic.com': 'dhcp://system'
+    'connectivitycheck.gstatic.com': 'dhcp://system'
+    '+.securelogin.arubanetworks.com': 'dhcp://system'
+    'securelogin.arubanetworks.com': 'dhcp://system'
+    '+.detectportal.firefox.com': 'dhcp://system'
+    'detectportal.firefox.com': 'dhcp://system'
+    '+.msftconnecttest.com': 'dhcp://system'
+    'msftconnecttest.com': 'dhcp://system'
+    'instant.arubanetworks.com': 'dhcp://system'
+    'setmeup.arubanetworks.com': 'dhcp://system'
+    'asusrouter.com': 'dhcp://system'
+    'router.asus.com': 'dhcp://system'
+    'www.asusrouter.com': 'dhcp://system'
+    'oasisauth.h3c.com': 'dhcp://system'
+    'routerlogin.com': 'dhcp://system'
+    'www.routerlogin.com': 'dhcp://system'
+    'tplogin.cn': 'dhcp://system'
+    'miwifi.com': 'dhcp://system'
+    'www.miwifi.com': 'dhcp://system'
+    '+.127.in-addr.arpa': 'dhcp://system'
+    '+.0.in-addr.arpa': 'dhcp://system'
+    '+.10.in-addr.arpa': 'dhcp://system'
+    '+.16.172.in-addr.arpa': 'dhcp://system'
+    '+.17.172.in-addr.arpa': 'dhcp://system'
+    '+.18.172.in-addr.arpa': 'dhcp://system'
+    '+.19.172.in-addr.arpa': 'dhcp://system'
+    '+.20.172.in-addr.arpa': 'dhcp://system'
+    '+.21.172.in-addr.arpa': 'dhcp://system'
+    '+.22.172.in-addr.arpa': 'dhcp://system'
+    '+.23.172.in-addr.arpa': 'dhcp://system'
+    '+.24.172.in-addr.arpa': 'dhcp://system'
+    '+.25.172.in-addr.arpa': 'dhcp://system'
+    '+.26.172.in-addr.arpa': 'dhcp://system'
+    '+.27.172.in-addr.arpa': 'dhcp://system'
+    '+.28.172.in-addr.arpa': 'dhcp://system'
+    '+.29.172.in-addr.arpa': 'dhcp://system'
+    '+.30.172.in-addr.arpa': 'dhcp://system'
+    '+.31.172.in-addr.arpa': 'dhcp://system'
+    '+.168.192.in-addr.arpa': 'dhcp://system'
+    '+.254.169.in-addr.arpa': 'dhcp://system'
+    '+.localhost.ptlogin2.qq.com': 'dhcp://system'
+    '+.localhost.sec.qq.com': 'dhcp://system'
+    '+.d.f.ip6.arpa': 'dhcp://system'
+    '+.b.e.f.ip6.arpa': 'dhcp://system'
+    '+.a.e.f.ip6.arpa': 'dhcp://system'
+    '+.9.e.f.ip6.arpa': 'dhcp://system'
+    '+.8.e.f.ip6.arpa': 'dhcp://system'
+    '+.113.0.203.in-addr.arpa': 'dhcp://system'
+    '+.100.51.198.in-addr.arpa': 'dhcp://system'
+    '+.2.0.192.in-addr.arpa': 'dhcp://system'
+    '+.255.255.255.255.in-addr.arpa': 'dhcp://system'
+    '+.8.b.d.0.1.0.0.2.ip6.arpa': 'dhcp://system'
+    '+.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa': 'dhcp://system'
+    '+.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa': 'dhcp://system'
+
+{{ conf | except("proxy-groups", "port", "mode") | yaml }}
+
+proxy-groups:
+- name: 'PROXY'
+  type: 'url-test'
+  url: 'http://www.gstatic.com/generate_204'
+  interval: 300
+  proxies:
+  {{ proxy_remarks | yaml | indent(2) }}
+{{ conf.get("proxy-groups", []) | yaml }}
+
+
+rules:
+  - DOMAIN-SUFFIX,detectportal.firefox.com,DIRECT
+  - DOMAIN-SUFFIX,msftconnecttest.com,DIRECT
+  - DOMAIN-SUFFIX,connectivitycheck.gstatic.com,DIRECT
+  - DOMAIN-SUFFIX,securelogin.arubanetworks.com,DIRECT
+  - DOMAIN-SUFFIX,captive.apple.com,DIRECT
+  - DOMAIN-SUFFIX,vk.com,DIRECT
+  - DOMAIN-SUFFIX,ru,DIRECT
+  - DOMAIN-SUFFIX,рф,DIRECT
+  - DOMAIN-SUFFIX,avito.st,DIRECT
+  - DOMAIN-SUFFIX,vk.cc,DIRECT
+  - DOMAIN-SUFFIX,yandex.com,DIRECT
+  - DOMAIN-SUFFIX,yandex.md,DIRECT
+  - DOMAIN-SUFFIX,yandex.net,DIRECT
+  - DOMAIN-SUFFIX,yastatic.net,DIRECT
+  - DOMAIN-SUFFIX,userapi.com,DIRECT
+  - DOMAIN-SUFFIX,lenta.com,DIRECT
+  - DOMAIN-SUFFIX,ozonusercontent.com,DIRECT
+  - DOMAIN-SUFFIX,2gis.com,DIRECT
+  - DOMAIN-SUFFIX,kpcdn.net,DIRECT
+  - DOMAIN-SUFFIX,kp.house,DIRECT
+  - DOMAIN-SUFFIX,kp.kg,DIRECT
+  - DOMAIN-SUFFIX,kaspersky-labs.com,DIRECT
+  - DOMAIN-SUFFIX,kaspersky.com,DIRECT
+  - DOMAIN-SUFFIX,yadro.com,DIRECT
+  - DOMAIN-SUFFIX,livejournal.com,DIRECT
+  - DOMAIN-SUFFIX,livejournal.net,DIRECT
+  - DOMAIN-SUFFIX,habr.com,DIRECT
+  - DOMAIN-SUFFIX,habrastorage.org,DIRECT
+  - DOMAIN,instant.arubanetworks.com,DIRECT
+  - DOMAIN,setmeup.arubanetworks.com,DIRECT
+  - DOMAIN,asusrouter.com,DIRECT
+  - DOMAIN,router.asus.com,DIRECT
+  - DOMAIN,www.asusrouter.com,DIRECT
+  - DOMAIN,oasisauth.h3c.com,DIRECT
+  - DOMAIN,routerlogin.com,DIRECT
+  - DOMAIN,www.routerlogin.com,DIRECT
+  - DOMAIN,tplogin.cn,DIRECT
+  - DOMAIN,miwifi.com,DIRECT
+  - DOMAIN,www.miwifi.com,DIRECT
+  - DOMAIN-SUFFIX,127.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,0.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,10.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,16.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,17.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,18.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,19.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,20.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,21.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,22.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,23.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,24.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,25.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,26.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,27.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,28.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,29.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,30.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,31.172.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,168.192.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,254.169.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,localhost.ptlogin2.qq.com,DIRECT
+  - DOMAIN-SUFFIX,localhost.sec.qq.com,DIRECT
+  - DOMAIN-SUFFIX,d.f.ip6.arpa,DIRECT
+  - DOMAIN-SUFFIX,b.e.f.ip6.arpa,DIRECT
+  - DOMAIN-SUFFIX,a.e.f.ip6.arpa,DIRECT
+  - DOMAIN-SUFFIX,9.e.f.ip6.arpa,DIRECT
+  - DOMAIN-SUFFIX,8.e.f.ip6.arpa,DIRECT
+  - DOMAIN-SUFFIX,113.0.203.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,100.51.198.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,2.0.192.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,255.255.255.255.in-addr.arpa,DIRECT
+  - DOMAIN-SUFFIX,8.b.d.0.1.0.0.2.ip6.arpa,DIRECT
+  - DOMAIN-SUFFIX,1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa,DIRECT
+  - DOMAIN-SUFFIX,0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa,DIRECT
+  - IP-CIDR,0.0.0.0/8,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,192.0.0.0/24,DIRECT
+  - IP-CIDR,192.0.2.0/24,DIRECT
+  - IP-CIDR,192.88.99.0/24,DIRECT
+  - IP-CIDR,198.18.0.0/15,DIRECT
+  - IP-CIDR,198.51.100.0/24,DIRECT
+  - IP-CIDR,203.0.113.0/24,DIRECT
+  - IP-CIDR,224.0.0.0/3,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  - IP-CIDR,169.254.0.0/16,DIRECT
+  - IP-CIDR,224.0.0.0/4,DIRECT
+  - IP-CIDR6,::/127,DIRECT
+  - IP-CIDR6,fc00::/7,DIRECT
+  - IP-CIDR6,fd00::/8,DIRECT
+  - IP-CIDR6,fe80::/10,DIRECT
+  - GEOIP,RU,DIRECT
+  - MATCH,PROXY
