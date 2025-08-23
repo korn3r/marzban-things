@@ -1,0 +1,74 @@
+services:
+  marzban:
+    image: gozargah/marzban:v0.8.4
+    restart: always
+    env_file: .env
+    network_mode: host
+    container_name: marzban-1
+    depends_on:
+      - mariadb
+    volumes:
+      - /var/lib/marzban:/var/lib/marzban
+      - marzban-sock:/run/:rw
+      - xray1-sock:/opt/xray/:rw
+      - nginx1-sock:/opt/nginx/:rw
+      - /etc/sysctl.conf:/etc/sysctl.conf
+      - db-sock:/opt/mariadb/:rw
+
+  mariadb:
+    image: mariadb:lts
+    network_mode: host
+    restart: always
+    container_name: mariadb-1
+    command:
+      - --skip-networking
+      - --character_set_server=utf8mb4
+      - --collation_server=utf8mb4_unicode_ci
+      - --host-cache-size=0
+      - --innodb-open-files=1024
+      - --innodb-buffer-pool-size=268435456
+    volumes:
+      - ./mysql/:/var/lib/mysql/:rw
+      - db-sock:/var/run/mysqld/:rw
+
+  nginx:
+    image: nginx:mainline-alpine
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/www/:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/letsencrypt/:ro
+      - ./log/:/var/log/nginx/:rw
+      - nginx1-sock:/opt/run/:rw
+      - marzban-sock:/opt/marzban/:rw
+      - /etc/sysctl.conf:/etc/sysctl.conf
+    network_mode: host
+    container_name: nginx-1
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+    network_mode: host
+
+volumes:
+  db-sock:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
+
+  marzban-sock:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
+
+  xray1-sock:
+    external: true
+
+  nginx1-sock:
+    external: true
