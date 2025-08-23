@@ -1,0 +1,352 @@
+{
+"dns": {
+    "hosts": {
+        "one.one.one.one": [
+            "1.1.1.1",
+            "1.0.0.1",
+            "2606:4700:4700::1111",
+            "2606:4700:4700::1001"
+        ],
+        "common.dot.dns.yandex.net": [
+            "77.88.8.1",
+            "77.88.8.8",
+            "2a02:6b8::feed:ff",
+            "2a02:6b8:0:1::feed:ff"
+        ],
+        "dns.google": [
+            "8.8.8.8",
+            "8.8.4.4",
+            "2001:4860:4860::8844",
+            "2001:4860:4860::8888"
+        ]
+    },
+    "servers": [
+        "https://one.one.one.one/dns-query",
+        "https://dns.google/dns-query",
+      {
+        "address": "localhost",
+        "domains": [
+                        "geosite:private",
+                        "domain:loc",
+                        "domain:local",
+                        "domain:lan",
+                        "domain:home",
+                        "domain:intranet",
+                        "domain:internal",
+                        "domain:corp",
+                        "domain:private",
+                        "domain:localdomain",
+                        "domain:example",
+                        "domain:invalid",
+                        "domain:localhost",
+                        "domain:test",
+                        "domain:router",
+                        "domain:ts.net",
+                        "domain:home.arpa",
+                        "domain:hiwifi.com",
+                        "domain:tplinkwifi.net",
+                        "domain:tendawifi.com",
+                        "domain:plex.direct",
+                        "domain:router.ctc",
+                        "domain:phicomm.me",
+                        "domain:peiluyou.com",
+                        "domain:127.in-addr.arpa",
+                        "domain:0.in-addr.arpa",
+                        "domain:10.in-addr.arpa",
+                        "domain:16.172.in-addr.arpa",
+                        "domain:17.172.in-addr.arpa",
+                        "domain:18.172.in-addr.arpa",
+                        "domain:19.172.in-addr.arpa",
+                        "domain:20.172.in-addr.arpa",
+                        "domain:21.172.in-addr.arpa",
+                        "domain:22.172.in-addr.arpa",
+                        "domain:23.172.in-addr.arpa",
+                        "domain:24.172.in-addr.arpa",
+                        "domain:25.172.in-addr.arpa",
+                        "domain:26.172.in-addr.arpa",
+                        "domain:27.172.in-addr.arpa",
+                        "domain:28.172.in-addr.arpa",
+                        "domain:29.172.in-addr.arpa",
+                        "domain:30.172.in-addr.arpa",
+                        "domain:31.172.in-addr.arpa",
+                        "domain:168.192.in-addr.arpa",
+                        "domain:254.169.in-addr.arpa",
+                        "domain:localhost.ptlogin2.qq.com",
+                        "domain:localhost.sec.qq.com",
+                        "domain:d.f.ip6.arpa",
+                        "domain:b.e.f.ip6.arpa",
+                        "domain:a.e.f.ip6.arpa",
+                        "domain:9.e.f.ip6.arpa",
+                        "domain:8.e.f.ip6.arpa",
+                        "domain:113.0.203.in-addr.arpa",
+                        "domain:100.51.198.in-addr.arpa",
+                        "domain:2.0.192.in-addr.arpa",
+                        "domain:255.255.255.255.in-addr.arpa",
+                        "domain:8.b.d.0.1.0.0.2.ip6.arpa",
+                        "domain:1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa",
+                        "domain:0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa",
+                        "full:captive.apple.com",
+                        "full:connectivitycheck.gstatic.com",
+                        "full:securelogin.arubanetworks.com",
+                        "full:instant.arubanetworks.com",
+                        "full:setmeup.arubanetworks.com",
+                        "full:asusrouter.com",
+                        "full:router.asus.com",
+                        "full:oasisauth.h3c.com",
+                        "full:routerlogin.com",
+                        "full:tplogin.cn",
+                        "full:miwifi.com",
+                        "full:detectportal.firefox.com",
+                        "full:msftconnecttest.com"
+                ],
+        "skipFallback": true
+      },
+      {
+        "address": "localhost",
+        "domains": [
+                        "domain:ru",
+                        "domain:рф",
+                        "domain:su",
+                        "domain:рус",
+                        "domain:ru.net",
+                        "domain:moscow",
+                        "domain:москва"
+                ],
+        "skipFallback": true,
+        "queryStrategy": "UseIPv4"
+      },
+      {
+        "address": "localhost",
+        "domains": [
+                        "domain:vk.com",
+                        "domain:vk.cc",
+                        "domain:yandex.com",
+                        "domain:yandex.md",
+                        "domain:yandex.net",
+                        "domain:yastatic.net",
+                        "domain:avito.st",
+                        "domain:userapi.com",
+                        "domain:lenta.com",
+                        "domain:ozonusercontent.com",
+                        "domain:2gis.com",
+                        "domain:kpcdn.net",
+                        "domain:kp.house",
+                        "domain:kp.kg",
+                        "domain:kaspersky-labs.com",
+                        "domain:kaspersky.com",
+                        "domain:yadro.com",
+                        "domain:livejournal.com",
+                        "domain:livejournal.net",
+                        "domain:habr.com",
+                        "domain:habrastorage.org"
+                ],
+        "skipFallback": true,
+        "queryStrategy": "UseIPv4"
+      }
+    ],
+    "queryStrategy": "UseIP",
+    "disableCache": false,
+    "useSystemHosts": false
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 8
+      },
+      "sniffing": {
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "enabled": true,
+        "routeOnly": false
+      },
+      "tag": "socks"
+    }
+  ],
+  "log": {
+    "loglevel": "none"
+  },
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIP"
+      },
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      },
+      "tag": "block"
+    }
+  ],
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [
+      {
+        "network": "udp",
+        "outboundTag": "block",
+        "port": "443"
+      },
+      {
+        "domain": [
+                        "domain:loc",
+                        "domain:local",
+                        "domain:lan",
+                        "domain:home",
+                        "domain:intranet",
+                        "domain:internal",
+                        "domain:corp",
+                        "domain:private",
+                        "domain:localdomain",
+                        "domain:example",
+                        "domain:invalid",
+                        "domain:localhost",
+                        "domain:test",
+                        "domain:router",
+                        "domain:ts.net",
+                        "domain:home.arpa",
+                        "domain:hiwifi.com",
+                        "domain:tplinkwifi.net",
+                        "domain:tendawifi.com",
+                        "domain:plex.direct",
+                        "domain:router.ctc",
+                        "domain:phicomm.me",
+                        "domain:peiluyou.com",
+                        "domain:127.in-addr.arpa",
+                        "domain:0.in-addr.arpa",
+                        "domain:10.in-addr.arpa",
+                        "domain:16.172.in-addr.arpa",
+                        "domain:17.172.in-addr.arpa",
+                        "domain:18.172.in-addr.arpa",
+                        "domain:19.172.in-addr.arpa",
+                        "domain:20.172.in-addr.arpa",
+                        "domain:21.172.in-addr.arpa",
+                        "domain:22.172.in-addr.arpa",
+                        "domain:23.172.in-addr.arpa",
+                        "domain:24.172.in-addr.arpa",
+                        "domain:25.172.in-addr.arpa",
+                        "domain:26.172.in-addr.arpa",
+                        "domain:27.172.in-addr.arpa",
+                        "domain:28.172.in-addr.arpa",
+                        "domain:29.172.in-addr.arpa",
+                        "domain:30.172.in-addr.arpa",
+                        "domain:31.172.in-addr.arpa",
+                        "domain:168.192.in-addr.arpa",
+                        "domain:254.169.in-addr.arpa",
+                        "domain:localhost.ptlogin2.qq.com",
+                        "domain:localhost.sec.qq.com",
+                        "domain:d.f.ip6.arpa",
+                        "domain:b.e.f.ip6.arpa",
+                        "domain:a.e.f.ip6.arpa",
+                        "domain:9.e.f.ip6.arpa",
+                        "domain:8.e.f.ip6.arpa",
+                        "domain:113.0.203.in-addr.arpa",
+                        "domain:100.51.198.in-addr.arpa",
+                        "domain:2.0.192.in-addr.arpa",
+                        "domain:255.255.255.255.in-addr.arpa",
+                        "domain:8.b.d.0.1.0.0.2.ip6.arpa",
+                        "domain:1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa",
+                        "domain:0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa",
+                        "full:captive.apple.com",
+                        "full:connectivitycheck.gstatic.com",
+                        "full:securelogin.arubanetworks.com",
+                        "full:instant.arubanetworks.com",
+                        "full:setmeup.arubanetworks.com",
+                        "full:asusrouter.com",
+                        "full:router.asus.com",
+                        "full:oasisauth.h3c.com",
+                        "full:routerlogin.com",
+                        "full:tplogin.cn",
+                        "full:miwifi.com",
+                        "full:detectportal.firefox.com",
+                        "full:msftconnecttest.com"
+                ],
+        "outboundTag": "direct"
+      },
+      {
+        "domain": [
+                        "domain:ru",
+                        "domain:su",
+                        "domain:рф",
+                        "domain:рус",
+                        "domain:ru.net",
+                        "domain:moscow",
+                        "domain:москва"
+                ],
+        "outboundTag": "direct"
+      },
+      {
+        "domain": [
+                        "domain:vk.com",
+                        "domain:vk.cc",
+                        "domain:yandex.com",
+                        "domain:yandex.net",
+                        "domain:yandex.md",
+                        "domain:yastatic.net",
+                        "domain:avito.st",
+                        "domain:userapi.com",
+                        "domain:lenta.com",
+                        "domain:ozonusercontent.com",
+                        "domain:2gis.com",
+                        "domain:kpcdn.net",
+                        "domain:kp.house",
+                        "domain:kp.kg",
+                        "domain:kaspersky-labs.com",
+                        "domain:kaspersky.com",
+                        "domain:yadro.com",
+                        "domain:livejournal.com",
+                        "domain:livejournal.net",
+                        "domain:habr.com",
+                        "domain:habrastorage.org"
+                ],
+        "outboundTag": "direct"
+      },
+      {
+        "outboundTag": "direct",
+        "protocol": [ "bittorrent" ]
+      },
+          {
+        "ip": [
+                        "0.0.0.0/8",
+                        "10.0.0.0/8",
+                        "100.64.0.0/10",
+                        "127.0.0.0/8",
+                        "169.254.0.0/16",
+                        "172.16.0.0/12",
+                        "192.0.0.0/24",
+                        "192.0.2.0/24",
+                        "192.88.99.0/24",
+                        "192.168.0.0/16",
+                        "198.18.0.0/15",
+                        "198.51.100.0/24",
+                        "203.0.113.0/24",
+                        "224.0.0.0/3",
+                        "::/127",
+                        "fc00::/7",
+                        "fe80::/10",
+                        "ff00::/8"
+                ],
+        "outboundTag": "direct"
+      },
+      {
+        "ip": [ "geoip:ru" ],
+        "outboundTag": "direct"
+      },
+      {
+        "outboundTag": "proxy",
+        "port": "0-65535"
+      }
+    ]
+  }
+}
