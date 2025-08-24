@@ -36,3 +36,9 @@ elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):
 ```
 elif re.match(r'^v2raytun', user_agent):
 ```
+Отличия от оригинального subscription.py от в 0.8.4 только в наличии вот такого блока
+```
+    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):
+        conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=True, reverse=False)
+        return Response(content=conf, media_type="application/json", headers=response_headers)
+```
