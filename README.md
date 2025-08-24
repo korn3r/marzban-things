@@ -22,7 +22,12 @@ haproxy распределяет трафик на 443 порту по SNI на 
 
 ## subscription.py
 файл выдачи конфигурации через подписку для 0.8.4, в котором добавлена поддержка v2raytun (без нее не выдается роутинг, даже если настроен)
-должен быть выставлен в True параметр USE_CUSTOM_JSON_DEFAULT в .env
+в docker-compose.yml марзбана нужно добавить в volumes:
+```
+      - ./subscription.py:/code/app/routers/subscription.py
+```
+
+чтобы роутинг раздавался должен быть выставлен в True параметр USE_CUSTOM_JSON_DEFAULT в .env
 если вдруг нужно чтобы выдавало всегда, можно заменить в subscription.py строку 
 ```
 "elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):"
