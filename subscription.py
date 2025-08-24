@@ -1,3 +1,52 @@
+import re
+from distutils.version import LooseVersion
+
+from fastapi import APIRouter, Depends, Header, Path, Request, Response
+from fastapi.responses import HTMLResponse
+
+from app.db import Session, crud, get_db
+from app.dependencies import get_validated_sub, validate_dates
+from app.models.user import SubscriptionUserResponse, UserResponse
+from app.subscription.share import encode_title, generate_subscription
+from app.templates import render_template
+from config import (
+    SUB_PROFILE_TITLE,
+    SUB_SUPPORT_URL,
+    SUB_UPDATE_INTERVAL,
+    SUBSCRIPTION_PAGE_TEMPLATE,
+    USE_CUSTOM_JSON_DEFAULT,
+    USE_CUSTOM_JSON_FOR_HAPP,
+    USE_CUSTOM_JSON_FOR_STREISAND,
+    USE_CUSTOM_JSON_FOR_V2RAYN,
+    USE_CUSTOM_JSON_FOR_V2RAYNG,
+    XRAY_SUBSCRIPTION_PATH,
+)
+
+client_config = {
+    "clash-meta": {"config_format": "clash-meta", "media_type": "text/yaml", "as_base64": False, "reverse": False},
+    "sing-box": {"config_format": "sing-box", "media_type": "application/json", "as_base64": False, "reverse": False},
+    "clash": {"config_format": "clash", "media_type": "text/yaml", "as_base64": False, "reverse": False},
+    "v2ray": {"config_format": "v2ray", "media_type": "text/plain", "as_base64": True, "reverse": False},
+    "outline": {"config_format": "outline", "media_type": "application/json", "as_base64": False, "reverse": False},
+    "v2ray-json": {"config_format": "v2ray-json", "media_type": "application/json", "as_base64": False,
+                   "reverse": False}
+}
+
+router = APIRouter(tags=['Subscription'], prefix=f'/{XRAY_SUBSCRIPTION_PATH}')
+
+
+def get_subscription_user_info(user: UserResponse) -> dict:
+    """Retrieve user subscription information including upload, download, total data, and expiry."""
+    return {
+        "upload": 0,
+        "download": user.used_traffic,
+        "total": user.data_limit if user.data_limit is not None else 0,
+        "expire": user.expire if user.expire is not None else 0,
+    }
+
+
+@router.get("/{token}/")
+@router.get("/{token}", include_in_schema=False)
 def user_subscription(
     request: Request,
     db: Session = Depends(get_db),
@@ -45,7 +94,7 @@ def user_subscription(
         conf = generate_subscription(user=user, config_format="outline", as_base64=False, reverse=False)
         return Response(content=conf, media_type="application/json", headers=response_headers)
 
-    elif re.match(r'^v2raytun', user_agent):
+    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):
         conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=True, reverse=False)
         return Response(content=conf, media_type="application/json", headers=response_headers)
 
