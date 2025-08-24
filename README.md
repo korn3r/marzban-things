@@ -30,9 +30,9 @@ haproxy распределяет трафик на 443 порту по SNI на 
 чтобы роутинг раздавался должен быть выставлен в True параметр USE_CUSTOM_JSON_DEFAULT в .env
 если вдруг нужно чтобы выдавало всегда, можно заменить в subscription.py строку 
 ```
-"elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):"
+elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):
 ```
 на 
 ```
-"elif re.match(r'^v2raytun', user_agent):"
+elif re.match(r'^v2raytun', user_agent):
 ```
