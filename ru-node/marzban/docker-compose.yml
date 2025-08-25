@@ -24,6 +24,7 @@ services:
       - --skip-networking
       - --character_set_server=utf8mb4
       - --collation_server=utf8mb4_unicode_ci
+      - --innodb_snapshot_isolation=OFF
       - --host-cache-size=0
       - --innodb-open-files=1024
       - --innodb-buffer-pool-size=268435456
