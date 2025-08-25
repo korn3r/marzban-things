@@ -27,18 +27,29 @@ haproxy распределяет трафик на 443 порту по SNI на 
       - ./subscription.py:/code/app/routers/subscription.py
 ```
 
+Отличия от оригинального subscription.py от в 0.8.4 только в наличии вот такого блока
+```
+    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun/android', user_agent):
+        conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=True, reverse=False)
+        return Response(content=conf, media_type="application/json", headers=response_headers)
+
+    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun/ios', user_agent):
+        conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=False, reverse=False)
+        return Response(content=conf, media_type="application/json", headers=response_headers)
+
+```
+
+
 чтобы роутинг раздавался должен быть выставлен в True параметр USE_CUSTOM_JSON_DEFAULT в .env
 если вдруг нужно чтобы выдавало всегда, можно заменить в subscription.py строку 
 ```
-elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):
+elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun/android', user_agent):
+...
+elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun/ios', user_agent):
 ```
 на 
 ```
-elif re.match(r'^v2raytun', user_agent):
-```
-Отличия от оригинального subscription.py от в 0.8.4 только в наличии вот такого блока
-```
-    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):
-        conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=True, reverse=False)
-        return Response(content=conf, media_type="application/json", headers=response_headers)
+elif re.match(r'^v2raytun/android', user_agent):
+...
+elif re.match(r'^v2raytun/ios', user_agent):
 ```
