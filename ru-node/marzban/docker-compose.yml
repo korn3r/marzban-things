@@ -5,8 +5,11 @@ services:
     env_file: .env
     network_mode: host
     container_name: marzban-1
+# марзбан стартует и без этого, но если не делать healthcheck у бд, то при запуске марзбан может сыпать в логи
+# ошибки о том что не удалось подключиться к бд (потом все равно подключается)
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     volumes:
       - /var/lib/marzban:/var/lib/marzban
       - marzban-sock:/run/:rw
@@ -31,7 +34,17 @@ services:
     volumes:
       - ./mysql/:/var/lib/mysql/:rw
       - db-sock:/var/run/mysqld/:rw
+	  healthcheck:
+      test: ["CMD", "test", "-S", "/var/run/mysqld/mysqld.sock"]
+      start_period: 3s
+      interval: 1s
+      timeout: 1s
+      retries: 5
 
+# столкнулся с каким-то не особо воспроизводимым багом у нгинкса (1.29 и 1.28):
+# если при запуске нгинкс создает сокет, а потом ругается что он уже есть и не помогают
+# даже полное удаление контейнера и волюмов, то выставьте нгинксу слушать на tcp портах
+# запустите один раз так (без сокетов), потом включите обратно прослушивание на сокете
   nginx:
     image: nginx:mainline-alpine
     restart: always
@@ -53,6 +66,10 @@ services:
       - ./certbot/conf/:/etc/letsencrypt/:rw
     network_mode: host
 
+# volumes для сокетов. если мапит из просто папки на хосте, то в случае аварийного выключения сервера
+# nginx и xray не могут стартануть потому что старые файлы сокетов не были удалены.
+# db-sock и marzban-sock используются только локально, xray-sock и nginx-sock должны подключаться и к хапрокси
+# так что создаются там (не принципиально где, можно хоть руками один раз создать и выставить external: true везде)
 volumes:
   db-sock:
     driver: local
@@ -67,6 +84,7 @@ volumes:
       type: tmpfs
       device: tmpfs
       o: size=4k,nosuid,nodev
+
 
   xray1-sock:
     external: true
