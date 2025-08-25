@@ -94,8 +94,12 @@ def user_subscription(
         conf = generate_subscription(user=user, config_format="outline", as_base64=False, reverse=False)
         return Response(content=conf, media_type="application/json", headers=response_headers)
 
-    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun', user_agent):
+    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun/android', user_agent):
         conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=True, reverse=False)
+        return Response(content=conf, media_type="application/json", headers=response_headers)
+
+    elif USE_CUSTOM_JSON_DEFAULT and re.match(r'^v2raytun/ios', user_agent):
+        conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=False, reverse=False)
         return Response(content=conf, media_type="application/json", headers=response_headers)
 
     elif (USE_CUSTOM_JSON_DEFAULT or USE_CUSTOM_JSON_FOR_V2RAYN) and re.match(r'^v2rayN/(\d+\.\d+)', user_agent):
