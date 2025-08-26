@@ -28,15 +28,11 @@
                     "maxVersion": "1.3",
                     "privateKey": "<PRIVKEY>",
                     "publicKey": "<PUBKEY>",
-                    "shortIds": [
-                        ""
-
-                    ],
+                    "shortIds": [ "" ],
                     "fingerprint": "chrome",
                     "xver": 1
                 },
                 "sockopt": {
-                    "tcpFastOpen": true,
                     "acceptProxyProtocol": true
                 }
             },
@@ -49,10 +45,6 @@
         {
             "protocol": "freedom",
             "tag": "DIRECT"
-        },
-        {
-            "protocol": "blackhole",
-            "tag": "BLOCK"
         }
     ]
 }
