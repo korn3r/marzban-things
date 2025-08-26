@@ -34,7 +34,7 @@ services:
     volumes:
       - ./mysql/:/var/lib/mysql/:rw
       - db-sock:/var/run/mysqld/:rw
-	  healthcheck:
+	healthcheck:
       test: ["CMD", "test", "-S", "/var/run/mysqld/mysqld.sock"]
       start_period: 3s
       interval: 1s
