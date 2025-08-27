@@ -103,6 +103,8 @@ dns:
     'kaspersky-labs.com': 'dhcp://system'
     '+.kaspersky.com': 'dhcp://system'
     'kaspersky.com': 'dhcp://system'
+    'sberbank.com': 'dhcp://system'
+    '+.sberbank.com': 'dhcp://system'
     '+.yadro.com': 'dhcp://system'
     'yadro.com': 'dhcp://system'
     '+.livejournal.com': 'dhcp://system'
