@@ -199,6 +199,7 @@ rules:
   - DOMAIN-SUFFIX,yandex.md,DIRECT
   - DOMAIN-SUFFIX,yandex.net,DIRECT
   - DOMAIN-SUFFIX,yastatic.net,DIRECT
+  - DOMAIN-SUFFIX,sberbank.com,DIRECT
   - DOMAIN-SUFFIX,userapi.com,DIRECT
   - DOMAIN-SUFFIX,lenta.com,DIRECT
   - DOMAIN-SUFFIX,ozonusercontent.com,DIRECT
