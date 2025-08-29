@@ -53,3 +53,11 @@ elif re.match(r'^v2raytun/android', user_agent):
 ...
 elif re.match(r'^v2raytun/ios', user_agent):
 ```
+29.08.2025 добавлен еще блок для Happ for Windows:
+```
+
+    elif (USE_CUSTOM_JSON_DEFAULT or USE_CUSTOM_JSON_FOR_HAPP) and re.match(r'^Happ/(\d+\.\d+\.\d+)/Windows', user_agent):
+        conf = generate_subscription(user=user, config_format="v2ray-json", as_base64=False, reverse=False)
+        return Response(content=conf, media_type="application/json", headers=response_headers)
+```
+
