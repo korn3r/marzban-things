@@ -4066,7 +4066,7 @@
                             x-text="[status == 'active' ? $t('active') : status == 'limited' ? $t('limited') : status == 'expired' ? $t('expired') : $t('disabled')]"
                             :class="[status == 'active' ? 'bg-green-500' : status == 'limited' ? 'bg-red-600' : status == 'expired' ? 'bg-orange-600' : 'bg-gray-600']"></span>
                     </div>
-                    <div x-data="{ usedTraffic: {{ user.used_traffic }}, dataLimit: {% if not user.data_limit %}∞{% else %}{{ user.data_limit }}{% endif %} }"
+                    <div x-data="{ usedTraffic: {{ user.used_traffic }}, dataLimit: {% if not user.data_limit %}0{% else %}{{ user.data_limit }}{% endif %} }"
                         class="basis-2/3 flex flex-row items-center sm:ltr:pl-9 sm:rtl:pr-9">
                         <div class="data-usage w-full">
                             <div class="dark:text-white text-black text-center mb-2"><span class="font-bold"
