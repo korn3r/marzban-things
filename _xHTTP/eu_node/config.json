@@ -1,0 +1,57 @@
+{
+    "log": {
+        "loglevel": "none"
+    },
+    "policy": {
+        "levels": {
+          "0": {
+            "handshake": 4,
+            "connIdle": 300,
+            "uplinkOnly": 2,
+            "downlinkOnly": 5
+            }
+        }
+    },
+    "routing": {
+        "rules": [
+            {
+                "ip": [
+                    "geoip:private"
+                ],
+                "outboundTag": "BLOCK"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "tag": "VLESS XHTTP",
+            "listen": "/opt/run/xray/xray.socket,0666",
+            "protocol": "vless",
+            "port": 7201,
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "xhttp",
+                "xhttpSettings": {
+                    "mode": "stream-one",
+                    "path": "{ПУТЬ-ВПНА}"
+                }
+            },
+            "sniffing": {
+                "enabled": false
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "protocol": "freedom",
+            "tag": "DIRECT"
+        },
+        {
+            "protocol": "blackhole",
+            "tag": "BLOCK"
+        }
+    ]
+}
