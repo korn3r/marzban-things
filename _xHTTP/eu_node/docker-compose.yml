@@ -1,0 +1,94 @@
+services:
+  marzban:
+    image: gozargah/marzban:v0.8.4
+    restart: always
+    env_file: .env
+    container_name: marzban
+    network_mode: host
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - /var/lib/marzban/:/var/lib/marzban/
+      - nginx-sock:/opt/run/nginx/
+      - marzban-sock:/opt/run/marzban/
+      - xray-sock:/opt/run/xray/
+      - ./subscription.py:/code/app/routers/subscription.py
+      - db-sock:/opt/mariadb/:rw
+      - ./config.json:/var/lib/marzban/xray_config.json:rw
+
+  mariadb:
+    image: mariadb:lts
+    network_mode: host
+    restart: always
+    container_name: mariadb
+    command:
+      - --skip-networking
+      - --character_set_server=utf8mb4
+      - --collation_server=utf8mb4_unicode_ci
+      - --host-cache-size=0
+      - --innodb_snapshot_isolation=OFF
+      - --innodb-open-files=1024
+      - --innodb-buffer-pool-size=268435456
+    volumes:
+      - ./mysql/:/var/lib/mysql/
+      - db-sock:/var/run/mysqld/:rw
+    healthcheck:
+      test: ["CMD", "test", "-S", "/var/run/mysqld/mysqld.sock"]
+      start_period: 3s
+      interval: 1s
+      timeout: 1s
+      retries: 5
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/www/:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/letsencrypt/:ro
+      - ./log/:/var/log/nginx/:rw
+      - xray-sock:/opt/run/xray/
+      - marzban-sock:/opt/run/marzban/:rw
+      - /opt/www/:/opt/www/:ro
+      - /etc/sysctl.conf:/etc/sysctl.conf
+    network_mode: host
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./certbot/www/:/var/www/certbot/:rw
+      - ./certbot/conf/:/etc/letsencrypt/:rw
+    network_mode: host
+
+volumes:
+  db-sock:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
+
+  marzban-sock:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
+
+  xray-sock:
+    driver: local
+    name: xray-sock
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
+
+  nginx-sock:
+    driver: local
+    name: nginx-sock
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=4k,nosuid,nodev
