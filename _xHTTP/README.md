@@ -13,6 +13,7 @@ ru_node - промежуточный сервер с haproxy и nginx (ради 
 
 
 Настройка инбаунда БЕЗ промежуточной ноды:
+Alpn можно оставить так (h3? h2), или сделать два отдельных инбаунда для http2 или http3
 
 <img src="https://raw.githubusercontent.com/korn3r/marzban-things/refs/heads/main/_xHTTP/eu_node/inbound-settings.png" width=30% height=30%>  
 
