@@ -40,7 +40,7 @@
                 }
             },
             "sniffing": {
-                "enabled": false
+                "enabled": true
             }
         }
     ],
