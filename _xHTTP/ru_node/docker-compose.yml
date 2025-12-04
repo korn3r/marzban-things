@@ -1,7 +1,10 @@
 services:
     haproxy:
-        user: "0:0"
-        image: haproxytech/haproxy-alpine-quic:latest
+	user: "0:0"
+        build:
+            context: ./
+            dockerfile: Dockerfile
+            network: host
         restart: always
         container_name: haproxy
         network_mode: host
