@@ -1,0 +1,90 @@
+FROM alpine:3.22
+
+RUN set -eux; \
+	apk add --no-cache \
+		ca-certificates \
+		socat \
+	;
+
+RUN set -eux; \
+	addgroup --gid 99 --system haproxy; \
+	adduser \
+		--disabled-password \
+		--home /var/lib/haproxy \
+		--ingroup haproxy \
+		--no-create-home \
+		--system \
+		--uid 99 \
+		haproxy \
+	; \
+	mkdir /var/lib/haproxy; \
+	chown haproxy:haproxy /var/lib/haproxy
+
+ENV HAPROXY_VERSION 3.2.9
+ENV HAPROXY_URL https://www.haproxy.org/download/3.2/src/haproxy-3.2.9.tar.gz
+ENV HAPROXY_SHA256 e660d141b29019f4d198785b0834cc3e9c96efceeb807c2fff2fc935bd3354c2
+
+RUN set -eux; \
+	\
+  apk upgrade --no-cache; \
+	apk add --no-cache --virtual .build-deps \
+		gcc \
+		libc-dev \
+		linux-headers \
+		lua5.4-dev \
+		make \
+		openssl \
+		openssl-dev \
+		pcre2-dev \
+		readline-dev \
+		tar \
+	; \
+	\
+	wget -O haproxy.tar.gz "$HAPROXY_URL"; \
+	echo "$HAPROXY_SHA256 *haproxy.tar.gz" | sha256sum -c; \
+	mkdir -p /usr/src/haproxy; \
+	tar -xzf haproxy.tar.gz -C /usr/src/haproxy --strip-components=1; \
+	rm haproxy.tar.gz; \
+	\
+	makeOpts=' \
+		TARGET=linux-musl \
+		USE_GETADDRINFO=1 \
+                USE_PTHREAD_EMULATION=1 \
+		            USE_LUA=1 LUA_INC=/usr/include/lua5.4 LUA_LIB=/usr/lib/lua5.4 \
+		            USE_OPENSSL=1 \
+                USE_SLZ=1 \
+		            USE_PCRE2=1 USE_PCRE2_JIT=1 \
+                USE_TFO=1 \
+                USE_QUIC=1 \
+	'; \
+	\
+	nproc="$(getconf _NPROCESSORS_ONLN)"; \
+	eval "make -C /usr/src/haproxy -j '$nproc' all $makeOpts"; \
+	eval "make -C /usr/src/haproxy install-bin $makeOpts"; \
+	\
+	mkdir -p /usr/local/etc/haproxy; \
+	cp -R /usr/src/haproxy/examples/errorfiles /usr/local/etc/haproxy/errors; \
+	rm -rf /usr/src/haproxy; \
+	\
+	runDeps="$( \
+		scanelf --needed --nobanner --format '%n#p' --recursive /usr/local \
+			| tr ',' '\n' \
+			| sort -u \
+			| awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
+	)"; \
+	apk add --no-network --virtual .haproxy-rundeps $runDeps; \
+	apk del --no-network .build-deps; \
+	\
+  
+	haproxy -v
+
+STOPSIGNAL SIGUSR1
+
+COPY docker-entrypoint.sh /usr/local/bin
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+USER haproxy
+
+WORKDIR /var/lib/haproxy
+
+CMD ["haproxy", "-f", "/usr/local/etc/haproxy/haproxy.cfg"]
