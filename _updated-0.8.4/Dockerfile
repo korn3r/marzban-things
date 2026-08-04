@@ -1,6 +1,6 @@
 ARG PYTHON_VERSION=3.12
 
-FROM python:$PYTHON_VERSION-alpine3.21 AS build
+FROM python:$PYTHON_VERSION-alpine AS build
 
 ENV PYTHONUNBUFFERED=1
 
@@ -16,7 +16,7 @@ RUN pip install --upgrade pip setuptools \
 
 RUN rm -rf /var/cache/apk/*
 
-FROM python:$PYTHON_VERSION-alpine3.21
+FROM python:$PYTHON_VERSION-alpine
 
 ENV PYTHON_LIB_PATH=/usr/local/lib/python${PYTHON_VERSION%.*}/site-packages
 WORKDIR /code
