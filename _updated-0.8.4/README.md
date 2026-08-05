@@ -1,3 +1,5 @@
+Скачать готовый image: https://github.com/korn3r/marzban-things/releases/tag/v1-beta.3  
+
 Mod for https://github.com/gozargah/marzban
 
 1. Clone original repo.
