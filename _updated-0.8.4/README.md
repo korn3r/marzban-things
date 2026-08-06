@@ -26,5 +26,5 @@ PS: Markdown invented for torturing people for sure
 Убрана отправка заголовков extra в xHTTP - Марзбан все равно шлет дефолтные параметры ядра, так что можно и не слать их вообще.  
 Убрана отправка поля email.  
 Добавлена поддержка VLESS Encryption:  
-Нужно в .env вписать VLESS_ENC={ключ encryption} и в конфиге ядра нужно вписать ключ decryption ("decryption" = "{ключ}")  
+ - Нужно в .env вписать VLESS_ENC={ключ encryption} и в конфиге ядра нужно вписать ключ decryption ("decryption" = "{ключ}")  
 В подписке в заголовке profile-web-page-url адрес сервера теперь тот что указан в XRAY_SUBSCRIPTION_URL_PREFIX
