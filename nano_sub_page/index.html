@@ -677,14 +677,11 @@
             <div class="info-card">
                 <div class="label" data-i18n="traffic_label">Трафик</div>
                 <div class="value" id="trafficDisplay">
-                    <span id="trafficUsed">{{ user.used_traffic }}</span> /
-                    <span id="trafficLimit">
-                        {% if not user.data_limit %}
-                            ∞
-                        {% else %}
-                            {{ user.data_limit }}
-                        {% endif %}
-                    </span>
+                    <span id="trafficUsed">{{ user.used_traffic }}</span>
+                    <span id="trafficUnit" style="font-size:0.65rem; color: var(--text-secondary);">{{ user.used_traffic_unit or 'ГБ' }}</span>
+                    /
+                    <span id="trafficLimit">{{ user.data_limit or '∞' }}</span>
+                    <span id="trafficLimitUnit" style="font-size:0.65rem; color: var(--text-secondary);">{{ user.data_limit_unit or 'ГБ' }}</span>
                 </div>
             </div>
         </div>
