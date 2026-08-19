@@ -12,4 +12,4 @@
 
 - **korn3r** — *идея, дизайн, разработка*
 - **DeepSeek AI** — *консультации и помощь в написании кода* ([deepseek.com](https://deepseek.com))
-- **x0sina** - оригинальная ([страница подписки](https://github.com/x0sina/marzban-sub)), которую DeepSeek ужимал.
+- **x0sina** - *оригинальная ([страница подписки](https://github.com/x0sina/marzban-sub)), которую DeepSeek ужимал.*
