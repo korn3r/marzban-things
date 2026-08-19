@@ -677,11 +677,14 @@
             <div class="info-card">
                 <div class="label" data-i18n="traffic_label">Трафик</div>
                 <div class="value" id="trafficDisplay">
-                    <span id="trafficUsed">{{ user.used_traffic }}</span>
-                    <span id="trafficUnit" style="font-size:0.65rem; color: var(--text-secondary);">{{ user.used_traffic_unit or 'ГБ' }}</span>
-                    /
-                    <span id="trafficLimit">{{ user.data_limit or '∞' }}</span>
-                    <span id="trafficLimitUnit" style="font-size:0.65rem; color: var(--text-secondary);">{{ user.data_limit_unit or 'ГБ' }}</span>
+                    <span id="trafficUsed">{{ user.used_traffic | bytesformat }}</span> /
+                    <span id="trafficLimit">
+                        {% if not user.data_limit %}
+                            ∞
+                        {% else %}
+                            {{ user.data_limit | bytesformat }}
+                        {% endif %}
+                    </span>
                 </div>
             </div>
         </div>
@@ -2440,51 +2443,6 @@
                 return langMap[short] || langMap[browserLang] || 'en';
             }
 
-            function updateTrafficDisplay(lang) {
-                var t = translations[lang];
-                var usedEl = document.getElementById('trafficUsed');
-                var limitEl = document.getElementById('trafficLimit');
-
-                if (usedEl) {
-                    var usedText = usedEl.textContent.trim();
-                    var usedGB = formatTraffic(usedText);
-                    if (usedGB !== null) {
-                        usedEl.textContent = usedGB;
-                    }
-                }
-
-                if (limitEl) {
-                    var limitText = limitEl.textContent.trim();
-                    if (limitText === '∞') {
-                    } else {
-                        var limitGB = formatTraffic(limitText);
-                        if (limitGB !== null) {
-                            limitEl.textContent = limitGB;
-                        }
-                    }
-                }
-
-                var trafficDisplay = document.getElementById('trafficDisplay');
-                if (trafficDisplay) {
-                    var html = trafficDisplay.innerHTML;
-                    var gbLabel = t.gb || 'GB';
-                    var noLimit = t.no_limit || '∞';
-                    if (!html.includes('GB') && !html.includes('ГБ') && !html.includes('گیگابایت')) {
-                        html = html.replace(/(\d+\.?\d*)\s*\/\s*(\d+\.?\d*|∞)/g, function(match, used, limit) {
-                            if (limit === '∞') {
-                                return used + ' ' + gbLabel + ' / ' + noLimit;
-                            }
-                            return used + ' ' + gbLabel + ' / ' + limit + ' ' + gbLabel;
-                        });
-                        html = html.replace(/(\d+\.?\d*)(?!\s*\/|\s*GB|\s*ГБ|\s*گیگابایت)/g, function(match) {
-                            if (match === '∞') return match;
-                            return match + ' ' + gbLabel;
-                        });
-                        trafficDisplay.innerHTML = html;
-                    }
-                }
-            }
-
             function updateTexts(lang) {
                 var t = translations[lang];
                 if (!t) return;
@@ -2500,7 +2458,6 @@
 
                 updateStatus(lang);
                 updateOsLabels(lang);
-                updateTrafficDisplay(lang);
             }
 
             function updateStatus(lang) {
